@@ -1,4 +1,4 @@
-name = "comparador-de-catalogo-de-insumos-ebserh"
+name = "comparador-cat-logo-de-insumos"
 main = "worker.ts"
 compatibility_date = "2024-03-01"
 compatibility_flags = [ "nodejs_compat" ]
