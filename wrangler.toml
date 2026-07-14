@@ -1,0 +1,7 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "comparador-de-catalogo-de-insumos-ebserh"
+compatibility_date = "2024-03-01"
+
+[site]
+bucket = "./dist"
+entry-point = "server.ts"
