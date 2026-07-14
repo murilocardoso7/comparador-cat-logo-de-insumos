@@ -1,0 +1,6 @@
+{
+  "name": "Comparador de Catálogo de Insumos Ebserh",
+  "description": "Sistema de web scraping e análise comparativa de insumos hospitalares padronizados da rede Ebserh.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
