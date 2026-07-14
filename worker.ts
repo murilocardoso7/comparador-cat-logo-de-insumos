@@ -15,6 +15,7 @@ export default {
       return parseHtmlHandler({ request, env });
     }
 
+
     if (url.pathname === '/api/ai-analyze' || url.pathname === '/api/ai-analyze/') {
       return aiAnalyzeHandler({ request, env });
     }
