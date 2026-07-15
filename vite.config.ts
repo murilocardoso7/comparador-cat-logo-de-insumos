@@ -4,9 +4,13 @@ import path from 'path';
 import {defineConfig} from 'vite';
 import fs from 'fs';
 
+import { fileURLToPath } from 'url';
+
+const currentDir = path.dirname(fileURLToPath(import.meta.url));
+
 // Delete stale server.ts if restored from platform cache to prevent wrangler from using it as a rogue entrypoint
 try {
-  const staleServerPath = path.resolve(__dirname, 'server.ts');
+  const staleServerPath = path.resolve(currentDir, 'server.ts');
   if (fs.existsSync(staleServerPath)) {
     fs.unlinkSync(staleServerPath);
     console.log('Successfully deleted stale server.ts during Vite build initialization.');
@@ -15,12 +19,30 @@ try {
   console.error('Failed to delete stale server.ts:', err);
 }
 
+// Force overwrite wrangler.toml during build initialization to make sure it is correct and not corrupted by stale build cache
+try {
+  const wranglerPath = path.resolve(currentDir, 'wrangler.toml');
+  const expectedContent = `name = "comparador-cat-logo-de-insumos"
+main = "worker.ts"
+compatibility_date = "2024-03-01"
+compatibility_flags = [ "nodejs_compat" ]
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+`;
+  fs.writeFileSync(wranglerPath, expectedContent, 'utf-8');
+  console.log('Successfully wrote and sanitized wrangler.toml configuration.');
+} catch (err) {
+  console.error('Failed to sanitize wrangler.toml:', err);
+}
+
 export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(currentDir, '.'),
       },
     },
     server: {
