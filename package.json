@@ -9,7 +9,8 @@
     "build:pages": "vite build",
     "start": "node dist/server.cjs",
     "clean": "rm -rf dist",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "postinstall": "rm -f server.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
