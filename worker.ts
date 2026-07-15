@@ -1,3 +1,6 @@
+// Main entry point for Cloudflare Workers/Pages deployment
+// Handles routing for Ebserh catalog scraping, HTML parsing, and AI analysis APIs
+
 import { onRequest as scrapeHandler } from './functions/api/scrape';
 import { onRequest as parseHtmlHandler } from './functions/api/parse-html';
 import { onRequest as aiAnalyzeHandler } from './functions/api/ai-analyze';
