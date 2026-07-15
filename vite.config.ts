@@ -2,6 +2,18 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
+import fs from 'fs';
+
+// Delete stale server.ts if restored from platform cache to prevent wrangler from using it as a rogue entrypoint
+try {
+  const staleServerPath = path.resolve(__dirname, 'server.ts');
+  if (fs.existsSync(staleServerPath)) {
+    fs.unlinkSync(staleServerPath);
+    console.log('Successfully deleted stale server.ts during Vite build initialization.');
+  }
+} catch (err) {
+  console.error('Failed to delete stale server.ts:', err);
+}
 
 export default defineConfig(() => {
   return {
